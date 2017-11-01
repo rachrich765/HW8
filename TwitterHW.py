@@ -6,6 +6,7 @@ import json
 import re
 import tweepy
 import twitter_info # still need this in the same directory, filled out
+import sys
 
 consumer_key = twitter_info.consumer_key
 consumer_secret = twitter_info.consumer_secret
@@ -41,29 +42,30 @@ def get_tweets(tweet):
     if tweet in CACHE_DICTION:
         print("Data was in the cache")
     else:
-        v = api.search(q=tweet)
-        uprint("TEXT: ", v['statuses'][status]['text'])
-        uprint("CREATED AT: ", v['statuses'][status]['created_at'])
-        print('\n')
-        print('\n')
-        try:
+        for status in range(5):
+            v = api.search(q=tweet)
+            uprint("TEXT: ", v['statuses'][status]['text'])
+            uprint("CREATED AT: ", v['statuses'][status]['created_at'])
+            print('\n')
+            print('\n')
+            try:
         #value for key tweet is the result from api.serach()
-            CACHE_DICTION[tweet] =  v
+                CACHE_DICTION[tweet] =  v
             #returns string from python dictionarys
-            dumped_json_cache = json.dumps(CACHE_DICTION)
+                dumped_json_cache = json.dumps(CACHE_DICTION)
             # write cache file from string
-            fw = open(CACHE_FNAME,"w")
-            fw.write(dumped_json_cache)
-            fw.close() # Close the open file
-            return CACHE_DICTION[tweet]
-        except:
-            print("Wasn't in cache")
-            return None
+                fw = open(CACHE_FNAME,"w")
+                fw.write(dumped_json_cache)
+                fw.close() # Close the open file
+                return CACHE_DICTION[tweet]
+            except:
+                print("Wasn't in cache")
+                return None
 #run 3 different search terms
 for i in range(3):
-    tweet1 = 'bsi'
+    tweet1 = 'umsi'
     print("fetching")
-    data = getTweetWithCaching(tweet1)
+    data = get_tweets(tweet1)
 
 
 
