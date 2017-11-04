@@ -64,6 +64,7 @@ cur = conn.cursor()
 # 2 - Write code to drop the Tweets table if it exists, and create the table (so you can run the program over and over), with the correct (4) column names and appropriate types for each.
 # HINT: Remember that the time_posted column should be the TIMESTAMP data type!
 cur.execute('DROP TABLE IF EXISTS Tweets')
+#create columns, and give them names and variable type
 cur.execute("CREATE TABLE Tweets(tweet_id TEXT, author TEXT, time_posted TIMESTAMP, tweet_text TEXT, retweets NUMBER)")
 # 3 - Invoke the function you defined above to get a list that represents a bunch of tweets from the UMSI timeline. Save those tweets in a variable called umsi_tweets.
 umsi_tweets = get_tweets()
@@ -81,6 +82,7 @@ all_res = cur.fetchall()
     # Mon Oct 09 15:45:45 +0000 2017 - RT @MikeRothCom: Beautiful morning at @UMich - It’s easy to forget to
     # take in the view while running from place to place @umichDLHS  @umich…
 # Include the blank line between each tweet.
+#print date of tweet and text of tweet
 for t in all_res:
     uprint(t[0] + " - " + t[1] + "\n")
 # Select the author of all of the tweets (the full rows/tuples of information) that have been retweeted MORE
